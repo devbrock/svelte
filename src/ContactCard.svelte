@@ -3,6 +3,8 @@
   export let jobTitle;
   export let description;
   export let userImage;
+
+  let initialName = userName;
 </script>
 
 <style>
@@ -14,7 +16,7 @@
     <img class="card-img-top" src={userImage} alt={userName} />
   </div>
   <div class="card-body">
-    <h1 class="card-title">{userName}</h1>
+    <h1 class="card-title">{userName} / {initialName}</h1>
     <h2 class="card-title">{jobTitle}</h2>
     <p class="card-text">{description}</p>
   </div>
