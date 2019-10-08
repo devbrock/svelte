@@ -1,8 +1,12 @@
 {
   "version": 3,
   "file": "bundle.css",
-  "sources": [],
-  "sourcesContent": [],
+  "sources": [
+    "../src/App.svelte"
+  ],
+  "sourcesContent": [
+    "<script>\n  let name = \"Brock\";\n  let age = 22;\n\n  $: uppercaseName = name.toUpperCase();\n\n  function upAge() {\n    age += 1;\n  }\n\n  function changeName() {\n    name = \"timmy\";\n  }\n</script>\n\n<style>\n  h1 {\n    color: blue;\n  }\n</style>\n\n<h1>Hello {uppercaseName}, my age is {age}!</h1>\n<button on:click={upAge}>Change Age</button>\n<button on:click={changeName}>Change Name</button>\n"
+  ],
   "names": [],
-  "mappings": ""
+  "mappings": "AAgBE,EAAE,cAAC,CAAC,AACF,KAAK,CAAE,IAAI,AACb,CAAC"
 }
