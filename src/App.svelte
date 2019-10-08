@@ -1,24 +1,93 @@
 <script>
-  let name = "Brock";
-  let age = 22;
+  import ContactCard from "./ContactCard.svelte";
 
-  $: uppercaseName = name.toUpperCase();
+  let name = "";
+  let title = "";
+  let image = "";
+  let description = "";
+  let formState = "empty";
+  let createdContacts = [];
 
-  function upAge() {
-    age += 1;
+  function addContact() {
+    if (
+      name.trim().length == 0 ||
+      title.trim().length == 0 ||
+      image.trim().length == 0 ||
+      description.trim().length == 0
+    ) {
+      formState = "invalid";
+      return;
+    }
+    createdContacts = [
+      ...createdContacts,
+      {
+        name: name,
+        jobTitle: title,
+        imageUrl: image,
+        desc: description
+      }
+    ];
+    formState = "done";
   }
 
-  function changeName() {
-    name = "timmy";
+  function clearContact() {
+    name = "";
+    title = "";
+    image = "";
+    description = "";
+    formState = "empty";
   }
 </script>
 
 <style>
-  h1 {
-    color: blue;
-  }
+
 </style>
 
-<h1>Hello {uppercaseName}, my age is {age}!</h1>
-<button on:click={upAge}>Change Age</button>
-<button on:click={changeName}>Change Name</button>
+<div class="container my-4">
+  <div id="form">
+    <div class="input-group mb-3 w-50">
+      <label for="userName" class="mr-3">User Name</label>
+      <input type="text" class="form-control" bind:value={name} id="userName" />
+    </div>
+    <div class="input-group mb-3 w-50">
+      <label for="jobTitle" class="mr-3">Job Title</label>
+      <input
+        type="text"
+        class="form-control"
+        bind:value={title}
+        id="jobTitle" />
+    </div>
+    <div class="input-group mb-3 w-50">
+      <label for="image" class="mr-3">Image URL</label>
+      <input type="text" class="form-control" bind:value={image} id="image" />
+    </div>
+    <div class="input-group mb-3 w-50">
+      <label for="desc" class="mr-3">Description</label>
+      <textarea
+        rows="3"
+        class="form-control"
+        bind:value={description}
+        id="desc" />
+    </div>
+  </div>
+
+  <button on:click={addContact} class="btn btn-primary">
+    Add Contact Card
+  </button>
+  <button on:click={clearContact} class="btn btn-danger">Clear</button>
+
+  {#if formState === 'invalid'}
+    <p>Invalid Input</p>
+  {:else}
+    <p>Please fill out the form and hit add.</p>
+  {/if}
+
+  {#each createdContacts as contact}
+    <ContactCard
+      userName={contact.name}
+      jobTitle={contact.jobTitle}
+      description={contact.desc}
+      userImage={contact.imageUrl} />
+  {/each}
+
+</div>
